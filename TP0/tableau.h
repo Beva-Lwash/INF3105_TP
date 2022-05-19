@@ -101,7 +101,20 @@ void Tableau<T>::ajouter(const T& item)
 template <class T>
 void Tableau<T>::inserer(const T& element, int index)
 {
-    // À compléter
+    capacite=capacite*2;
+    T* temp= new T[capacite];
+    for(int i=0; i<capacite;i++){
+        if(i<=index){
+            temp[i]=elements[i];
+        }else if(i==index){
+            temp[i]=element;
+        }else{
+            temp[i]=elements[i--];
+        }
+    }
+    delete[] elements;
+    elements=temp;
+
 }
 
 template <class T>
@@ -158,8 +171,14 @@ Tableau<T>& Tableau<T>::operator = (const Tableau<T>& autre)
 template <class T>
 bool Tableau<T>::operator == (const Tableau<T>& autre) const
 {
-    // À compléter
-    return false;
+    if(this==&autre) return true;
+    if(nbElements!=autre.nbElements) return false;
+    for(int i=0;i<nbElements;i++){
+        if(elements[i] != autre.elements[i]){
+            return false;
+        }
+    }
+    return true;
 }
 
 #endif //define _TABLEAU___H_
