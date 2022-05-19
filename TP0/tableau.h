@@ -56,13 +56,17 @@ Tableau<T>::Tableau(int capacite_)
     capacite=capacite_;
     nbElements=0;
     elements= new T[capacite];
-    //elements = new T[1024]; // cette ligne n'est peut-être pas bonne.
 }
 
 template <class T>
 Tableau<T>::Tableau(const Tableau& autre)
 {
-    // À compléter
+    capacite=autre.capacite;
+    nbElements=autre.nbElements;
+    elements= new T[capacite];
+    for(int i=0;i<nbElements;i++){
+        elements[i]=autre.elements[i];
+    }
 }
 
 template <class T>
@@ -118,7 +122,7 @@ int Tableau<T>::chercher(const T& element) const
 template <class T>
 void Tableau<T>::vider()
 {
-    delete[] elements;
+    nbElements=0;
 }
 
 template <class T>
@@ -138,7 +142,16 @@ T& Tableau<T>::operator[] (int index)
 template <class T>
 Tableau<T>& Tableau<T>::operator = (const Tableau<T>& autre)
 {
-    // À compléter
+    if(this==&autre) return *this;
+    nbElements=autre.nbElements;
+    if(capacite<autre.nbElements){
+        delete[] elements;
+        capacite = autre.capacite;
+        elements = new T[capacite];
+    }
+    for(int i=0; i<nbElements;i++){
+        elements[i]=autre.elements[i];
+    }
     return *this;
 }
 
