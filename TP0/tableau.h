@@ -101,31 +101,40 @@ void Tableau<T>::ajouter(const T& item)
 template <class T>
 void Tableau<T>::inserer(const T& element, int index)
 {
-    capacite=capacite*2;
-    T* temp= new T[capacite];
-    for(int i=0; i<capacite;i++){
-        if(i<=index){
+     if(nbElements == capacite){
+        capacite=capacite*2;
+        T* temp= new T[capacite];
+        for(int i=0;i<nbElements;i++){
             temp[i]=elements[i];
-        }else if(i==index){
-            temp[i]=element;
-        }else{
-            temp[i]=elements[i--];
         }
-    }
-    delete[] elements;
-    elements=temp;
+        delete[] elements;
+        elements=temp;
+     }
+     for(int i=nbElements; i>index;--i){
+         elements[i]=elements[i-1];
+     }
+     elements[index]=element;
+     nbElements++;
 
 }
 
 template <class T>
 void Tableau<T>::enlever(int index)
 {
-    // À compléter
+    nbElements--;
+    for(int i= index; i<nbElements; ++i){
+        elements[i]=elements[i+1];
+    }
 }
 
 template <class T>
 int Tableau<T>::chercher(const T& element) const
 {
+    for(int i=0; i<nbElements;i++){
+        if(elements[i]==element){
+            return i;
+        }
+    }
     // À compléter
     // Voir la fonction Tableau<T>::contient() dans les notes de cours (Section 4.7).
     // Il suffit de l'adapter pour retourner la position au lieu d'un booléen.
