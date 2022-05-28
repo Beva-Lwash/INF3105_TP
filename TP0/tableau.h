@@ -22,6 +22,8 @@ class Tableau{
     void           ajouter(const T& element);
     // Vider le tableau
     void           vider();
+
+    bool           vide() const;
     // Retourne le nombre d'éléments dans le tableau
     int            taille() const;
 
@@ -33,6 +35,7 @@ class Tableau{
 
     // Cherche et retourne la position de l'élément. Si non trouvé, retourne -1.
     int            chercher(const T& element) const;
+    int            contient(const T& element) const;
 
     const T&       operator[] (int index) const;
     T&             operator[] (int index);
@@ -62,6 +65,7 @@ Tableau<T>::Tableau(int capacite_)
     capacite=capacite_;
     nbElements=0;
     elements= new T[capacite];
+    index= new T[capacite];
 }
 
 template <class T>
@@ -73,6 +77,7 @@ Tableau<T>::Tableau(const Tableau& autre)
     for(int i=0;i<nbElements;i++){
         elements[i]=autre.elements[i];
     }
+    index = new T[capacite];
 }
 
 template <class T>
@@ -80,6 +85,7 @@ Tableau<T>::~Tableau()
 {
     delete[] elements;
     elements=nullptr;
+    index=nullptr;
 }
 
 template <class T>
@@ -134,6 +140,13 @@ void Tableau<T>::enlever(int index)
 }
 
 template <class T>
+void Tableau<T>::enlever_dernier()
+{
+    nbElements--;
+
+}
+
+template <class T>
 int Tableau<T>::chercher(const T& element) const
 {
     for(int i=0; i<nbElements;i++){
@@ -148,6 +161,12 @@ template <class T>
 void Tableau<T>::vider()
 {
     nbElements=0;
+}
+
+template<class T>
+bool Tableau<T>::vide() const
+{
+    return nbElements==0;
 }
 
 template <class T>
@@ -206,14 +225,11 @@ int Tableau<T>::compter(const T& element)
     return compteur;
 
 }
-/*
+
 template <class T>
 void Tableau<T>::creer_index() const
 {
     index=new T[capacite];
 
-
-
 }
-*/
 #endif //define _TABLEAU___H_

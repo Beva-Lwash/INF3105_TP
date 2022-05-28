@@ -14,7 +14,7 @@ OPTIONS = -Wall
 #OPTIONS = -O2 -Wall
 
 # Les cibles à compiler
-all : test_tableau lab3
+all : test_tableau lab3 test_tp1
 
 # Syntaxe : cible : dépendance1 dépendance2 ...
 # Ensuite, la ou les ligne(s) débutant par une tabulation (\t) donne les commandes pour construire une cible
