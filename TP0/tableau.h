@@ -40,10 +40,16 @@ class Tableau{
     bool           operator == (const Tableau<T>& autre) const;
     Tableau<T>&    operator = (const Tableau<T>& autre);
 
+    //Fonctionalités spécifiques au TP1
+    int  compter(const T& element); // retourne le nb d'occurrences de element
+    void creer_index() const; // cette fonction permet d'optimiser les fonctions chercher, contient et compter.
+
   private:
     T*             elements;
     int            nbElements;
     int            capacite;
+    //index interne à créer
+    T*             index;
 };
 
 
@@ -135,9 +141,6 @@ int Tableau<T>::chercher(const T& element) const
             return i;
         }
     }
-    // À compléter
-    // Voir la fonction Tableau<T>::contient() dans les notes de cours (Section 4.7).
-    // Il suffit de l'adapter pour retourner la position au lieu d'un booléen.
     return -1;
 }
 
@@ -190,4 +193,27 @@ bool Tableau<T>::operator == (const Tableau<T>& autre) const
     return true;
 }
 
+template <class T>
+int Tableau<T>::compter(const T& element)
+{
+    int compteur=0;
+    for(int i =0; i< nbElements; ++i){
+        if(elements[i]==element){
+            compteur++;
+        }
+    }
+
+    return compteur;
+
+}
+/*
+template <class T>
+void Tableau<T>::creer_index() const
+{
+    index=new T[capacite];
+
+
+
+}
+*/
 #endif //define _TABLEAU___H_

@@ -18,6 +18,9 @@ all : test_tableau lab3
 
 # Syntaxe : cible : dépendance1 dépendance2 ...
 # Ensuite, la ou les ligne(s) débutant par une tabulation (\t) donne les commandes pour construire une cible
+
+test_tp1: tableau.h tests_tp1.cpp
+	g++ $(OPTIONS) -o tests_tp1 tests_tp1.cpp
 test_tableau: test_tableau.cpp tableau.h
 	g++ $(OPTIONS) -o test_tableau test_tableau.cpp
 
@@ -37,3 +40,4 @@ clean :
 	rm -f *.o
 	rm -f lab3
 	rm -rf test_tableau
+	rm -rf test_tp1
