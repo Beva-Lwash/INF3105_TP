@@ -32,6 +32,7 @@ class Tableau{
 
     // Enlève l'element à position index. Les éléments après index sont décalés d'une position.
     void           enlever(int index=0);
+    void           enlever_dernier();
 
     // Cherche et retourne la position de l'élément. Si non trouvé, retourne -1.
     int            chercher(const T& element) const;
@@ -46,6 +47,9 @@ class Tableau{
     //Fonctionalités spécifiques au TP1
     int  compter(const T& element); // retourne le nb d'occurrences de element
     void creer_index() const; // cette fonction permet d'optimiser les fonctions chercher, contient et compter.
+    void tri_fusion_algo(index_tableau* t[], int const debut, int const fin);
+    void tri_fusion(index_tableau* t[],int const debut, int const milieu,int const fin);
+
 
   private:
     T*             elements;
@@ -53,6 +57,12 @@ class Tableau{
     int            capacite;
     //index interne à créer
     T*             index;
+
+    struct index_tableau{
+        int index;
+        T element_tableau;
+    };
+
 };
 
 
@@ -226,10 +236,66 @@ int Tableau<T>::compter(const T& element)
 
 }
 
+template<class T>
+bool Tableau<T>::contient(const T &element) const;
+{
+    for(int i=0; i<nbElmenents; i++){
+        if(elements[i]==element){
+            return true;
+        }
+    }
+    return false;
+}
 template <class T>
 void Tableau<T>::creer_index() const
 {
-    index=new T[capacite];
 
+    index_tableau indexer = new index_tableau[capacite];
+
+    for(int i=0; i< nbElements; ++i){
+        indexer[i].index=i;
+        indexer[i].element_tableau=elements[i];
+    }
+    tri_fusion_algo(indexer,0, nbElements);
+
+}
+
+template <class T>
+void Tableau<T>::tri_fusion_algo(index_tableau* t[], int debut, int fin){
+    if(begin>=end){
+        return;
+    }
+
+    int milieu=fin/2;
+    tri_fusion_algo(index_tableau* t[], debut, milieu);
+    tri_fusion_algo(index_tableau* t[],milieu +1, fin);
+    tri_fusion(t[], debut, milieu, fin);
+
+}
+
+template <class T>
+void Tableau<T>::tri_fusion(index_tableau* t[], int gauche,int milieu, int droite){
+    int sous_tableau_un= milieu -gauche+1;
+    int sous_tableau_deux= droite-milieu;
+
+    index_tableau *tableau_gauche=new index_tableau[sous_tableau_un];
+    index_tableau *tableau_droite=new index_tableau[sous_tableau_deux];
+
+    for(int i=0; i<sous_tableau_un;++i){
+        tableau_gauche[i].element_tableau= t[gauche+i].element_tableau;
+        tableau_gauche[i].index=t[gauche+i].index;
+    }
+    for(int j=0; j<sous_tableau_droite;++j){
+        tableau_droite[j].element_tableau= t[milieu+1+j].element_tableau;
+        tableau_droite[j].index=t[milieu+1=j].index;
+    }
+
+    int index_sous_tableau_un=0,index_sous_tableau_deux=0,index_tableau_fusionne=0;
+
+    while(index_sous_tableau_un<sous_tableau_un && index_sous_tableau_deux<sous_tableau_deux){
+        if(tableau_gauche[index_sous_tableau_un].element_tableau<=tableau_droite[sous_tableau_deux].element_tableau){
+            t[index_tableau_fusionne]=tableau_gauche[index_sous_tableau_un];
+        }
+    }
 }
 #endif //define _TABLEAU___H_
