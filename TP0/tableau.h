@@ -36,7 +36,7 @@ class Tableau{
 
     // Cherche et retourne la position de l'élément. Si non trouvé, retourne -1.
     int            chercher(const T& element) const;
-    int            contient(const T& element) const;
+    bool           contient(const T& element) const;
 
     const T&       operator[] (int index) const;
     T&             operator[] (int index);
@@ -46,9 +46,9 @@ class Tableau{
 
     //Fonctionalités spécifiques au TP1
     int  compter(const T& element); // retourne le nb d'occurrences de element
-    void creer_index() const; // cette fonction permet d'optimiser les fonctions chercher, contient et compter.
-    void tri_fusion_algo(index_tableau* t[], int const debut, int const fin);
-    void tri_fusion(index_tableau* t[],int const debut, int const milieu,int const fin);
+   // void creer_index() const; // cette fonction permet d'optimiser les fonctions chercher, contient et compter.
+   // void tri_fusion_algo(struct index_tableau t[], int const debut, int const fin);
+    //void tri_fusion(struct index_tableau t[],int const debut, int const milieu,int const fin);
 
 
   private:
@@ -236,16 +236,17 @@ int Tableau<T>::compter(const T& element)
 
 }
 
-template<class T>
-bool Tableau<T>::contient(const T &element) const;
+template <class T>
+bool Tableau<T>::contient(const T &element) const
 {
-    for(int i=0; i<nbElmenents; i++){
+    for(int i=0; i<nbElements; i++){
         if(elements[i]==element){
             return true;
         }
     }
     return false;
 }
+/*
 template <class T>
 void Tableau<T>::creer_index() const
 {
@@ -261,7 +262,7 @@ void Tableau<T>::creer_index() const
 }
 
 template <class T>
-void Tableau<T>::tri_fusion_algo(index_tableau* t[], int debut, int fin){
+void Tableau<T>::tri_fusion_algo(struct index_tableau** t[], int debut, int fin){
     if(begin>=end){
         return;
     }
@@ -274,7 +275,7 @@ void Tableau<T>::tri_fusion_algo(index_tableau* t[], int debut, int fin){
 }
 
 template <class T>
-void Tableau<T>::tri_fusion(index_tableau* t[], int gauche,int milieu, int droite){
+void Tableau<T>::tri_fusion(struct index_tableau t[], int gauche,int milieu, int droite){
     int sous_tableau_un= milieu -gauche+1;
     int sous_tableau_deux= droite-milieu;
 
@@ -294,8 +295,31 @@ void Tableau<T>::tri_fusion(index_tableau* t[], int gauche,int milieu, int droit
 
     while(index_sous_tableau_un<sous_tableau_un && index_sous_tableau_deux<sous_tableau_deux){
         if(tableau_gauche[index_sous_tableau_un].element_tableau<=tableau_droite[sous_tableau_deux].element_tableau){
-            t[index_tableau_fusionne]=tableau_gauche[index_sous_tableau_un];
+            t[index_tableau_fusionne].element_tableau=tableau_gauche[index_sous_tableau_un].element_tableau;
+            t[index_tableau_fusionne].index=tableau_gauche[index_sous_tableau_un].index;
+            index_sous_tableau_un++;
+        }else{
+            t[index_tableau_fusionne].element_tableau=tableau_droite[index_sous_tableau_deux].element_tableau;
+            t[index_tableau_fusionne].index=tableau_droite[index_sous_tableau_deux].index;
+            index_sous_tableau_deux++;
         }
+        index_tableau_fusionne++;
+    }
+
+    while(index_sous_tableau_un<sous_tableau_un){
+        t[index_tableau_fusionne].element_tableau=tableau_gauche[index_sous_tableau_un].element_tableau;
+        t[index_tableau_fusionne].index= tableau_gauche[index_sous_tableau_un].index;
+        index_sous_tableau_un++;
+        index_tableau_fusionne++;
+    }
+
+    while(index_sous_tableau_deux<sous_tableau_deux){
+        t[index_tableau_fusionne].element_tableau=tableau_droite[index_sous_tableau_deux].element_tableau;
+        t[index_tableau_fusionne].index=tableau_droite[index_sous_tableau_deux].index;
+        index_sous_tableau_deux++;
+        index_tableau_fusionne++;
     }
 }
+*/
+
 #endif //define _TABLEAU___H_
