@@ -8,7 +8,7 @@ all : tp2
 
 tp2 : tp2.cpp personne.h personne.o coordonnees.h coordonnees.o
 	g++ ${OPTIONS} -o tp2 tp2.cpp coordonnees.o personne.o
-	
+
 personne.o : personne.cpp personne.h
 	g++ ${OPTIONS} -c -o personne.o personne.cpp
 
@@ -17,4 +17,3 @@ coordonnees.o : coordonnees.cpp coordonnees.h
 
 clean:
 	rm -rf tp2 *~ *.o
-

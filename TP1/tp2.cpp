@@ -1,7 +1,7 @@
 /*    UQAM / Département d'informatique                          *
  *    INF3105 - Structures de données et algorithmes             *
  *    Été 2022 / TP2                                             *
- *    AUTEUR(S): ÉCRIVEZ ICI VOTRE NOM + CODE PERMANENT          */
+ *    AUTEUR(S): Ama SEYE + SEYA0601960 */
 
 #include <cstdlib>
 #include <iostream>
@@ -14,7 +14,7 @@ using namespace std;
 int tp2(istream& in){
     Tableau<Personne> personnes;
 
-    while(in){ 
+    while(in){
         Personne nouvellePersonne;
         in >> nouvellePersonne;
         if(in.eof()) break;
@@ -26,7 +26,7 @@ int tp2(istream& in){
         for(int j = i + 1; j < personnes.taille(); j++){
             string typeRelation = personnes[i].getTypeRelation(personnes[j]);
             if(typeRelation != "")
-                cout << personnes[i].getNom() << " et " << personnes[j].getNom() << typeRelation << endl;
+                cout << personnes[i].getNom() << " et " << personnes[j].getNom() <<" sont des "<< typeRelation <<"."<< endl;
     }
     return 0; // fin normale
 }

@@ -22,4 +22,3 @@ class Coordonnees {
 };
 
 #endif
-

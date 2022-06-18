@@ -14,7 +14,7 @@ Coordonnees::Coordonnees(const Coordonnees& coor)
 {
 }
 
-Coordonnees::Coordonnees(double latitude_, double longitude_) 
+Coordonnees::Coordonnees(double latitude_, double longitude_)
   : latitude(latitude_), longitude(longitude_)
 {
 }
@@ -40,12 +40,10 @@ std::istream& operator >> (std::istream& is, Coordonnees& coor) {
 }
 
 std::ostream& operator << (std::ostream& os, const Coordonnees& coor) {
-    os << "(" 
+    os << "("
        << (coor.latitude * 180.0 / PI)
-       << "," 
+       << ","
        << (coor.longitude * 180.0 / PI)
        << ")";
     return os;
 }
-
-
